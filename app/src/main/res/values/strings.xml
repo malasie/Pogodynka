@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pogodynka</string>
+    <string name="pogoda">Pogoda</string>
+    <string name="show_weather">Show Weather</string>
+    <string name="show">show Weather</string>
+    <string name="pogodynka">Pogodynka</string>
+    <string name="city">City</string>
+    <string name="feels_like">feels like:</string>
+    <string name="textview">TextView</string>
+    <string name="date">date</string>
+    <string name="description">description</string>
+    <string name="weather_icon">weather_icon</string>
+</resources>

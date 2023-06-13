@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="428dp"
-        android:layout_height="814dp"
+        android:layout_width="411dp"
+        android:layout_height="811dp"
+        android:importantForAccessibility="no"
         android:rotationX="0"
         android:rotationY="180"
         android:scaleType="centerCrop"
@@ -18,8 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/after_noon"
-        android:importantForAccessibility="no" />
+        app:srcCompat="@drawable/after_noon" />
+
 
     <TextView
         android:id="@+id/cityView"
@@ -30,23 +31,47 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.286"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.094" />
+
+    <TextView
+        android:id="@+id/DescriptionView"
+        android:layout_width="223dp"
+        android:layout_height="315dp"
+        android:layout_marginTop="16dp"
+        android:gravity="bottom|right|end"
+        android:layoutDirection="inherit"
+        android:rotation="-90"
+
+        android:text="@string/description"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        app:circularflow_radiusInDP="13"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_wrapBehaviorInParent="skipped" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="36dp"
         android:layout_height="53dp"
+        android:contentDescription="@string/weather_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047"
-        app:srcCompat="@drawable/ic_cloudy"
-        android:contentDescription="@string/weather_icon" />
+        app:layout_constraintVertical_bias="0.072"
+        app:srcCompat="@drawable/ic_cloudy" />
 
     <TextView
         android:id="@+id/tempView"
@@ -62,39 +87,17 @@
         app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115" />
-
-    <TextView
-        android:id="@+id/DescriptionView"
-        android:layout_width="223dp"
-        android:layout_height="315dp"
-        android:gravity="bottom|right|end"
-        android:layoutDirection="inherit"
-        android:rotation="-90"
-        android:text="@string/description"
-
-        android:textAlignment="gravity"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        app:circularflow_radiusInDP="13"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.64"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_wrapBehaviorInParent="skipped" />
+        app:layout_constraintVertical_bias="0.143" />
 
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="400dp"
         android:background="#B3FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -113,9 +116,11 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
+                android:shadowColor="#2B2B2B"
                 android:text="@string/date"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textColor="#E37402"
+                android:textSize="20sp" />
         </TableRow>
 
         <TableRow
@@ -123,14 +128,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/temp"
+            <LinearLayout
+                android:id="@+id/linear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/feels_like" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/feels_like"
+                    android:textColor="#2B2B2B"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="max"
+                    android:textColor="#2B2B2B"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="min"
+                    android:textColor="#2B2B2B"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
         </TableRow>
 
@@ -139,51 +174,86 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@drawable/ic_drop" />
-
-            <TextView
-                android:id="@+id/rain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/textview"
-                android:textAlignment="center" />
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+            <LinearLayout
+                android:id="@+id/row"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_wind" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/wind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/textview"
-                android:textAlignment="center" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:srcCompat="@drawable/ic_drop" />
+
+                <TextView
+                    android:id="@+id/rainView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/no_data"
+                    android:textAlignment="center"
+                    android:textColor="#2B2B2B"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:srcCompat="@drawable/ic_wind" />
+
+                <TextView
+                    android:id="@+id/wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/textview"
+                    android:textAlignment="center"
+                    android:textColor="#2B2B2B"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
         </TableRow>
 
     </TableLayout>
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="51dp"
+        android:layout_height="52dp"
+        android:alpha="0.5"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="go back"
+        android:onClick="goBack"
+        android:scaleType="fitStart"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        app:layout_constraintBottom_toBottomOf="@+id/tableLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/back" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

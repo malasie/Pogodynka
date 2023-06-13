@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -62,16 +63,23 @@ public class Start extends AppCompatActivity {
         }
     }
 
+    public void goBack(View view){
+        setContentView(R.layout.activity_start);
+        city = findViewById(R.id.cityEditText);
+        textView = findViewById(R.id.textView);
+    }
+
+
     public void showWeather(View view){
 
         String url ="";
-        String url2 ="";
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET},1);
         }
         else{
-
+            city = findViewById(R.id.cityEditText);
+            textView = findViewById(R.id.textView);
             if (city.getText().toString().equals("")){
                 city.setHint("Please enter City name!!");
                 city.setBackgroundColor(Color.parseColor("#c77c71"));
@@ -82,7 +90,6 @@ public class Start extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        String output="";
                         JSONObject jsonObject = null;
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM HH:mm");
 
@@ -96,39 +103,30 @@ public class Start extends AppCompatActivity {
                             JSONObject main  = jsonObject.getJSONObject("main");
                             double temp = Math.round(main.getDouble("temp")*10)/10;
                             double temp1 = Math.round(main.getDouble("feels_like")*10)/10;
+                            double maxtemp = Math.round(main.getDouble("temp_max")*10)/10;
+                            double mintemp = Math.round(main.getDouble("temp_min")*10)/10;
 
                             JSONObject wind  = jsonObject.getJSONObject("wind");
                             double speed = Math.round(wind.getDouble("speed")*10)/10;
                             double deg = wind.getDouble("deg");
                             String direction = Direction(deg);
 
-                            try {
-                                JSONObject rain  = jsonObject.getJSONObject("rain");
-                                double h1 = rain.getDouble("1h");
-                                TextView rainView = findViewById(R.id.rain);
-                                rainView.setText(h1+" mm");
-                            }catch (JSONException e) {
-                                TextView rainView = findViewById(R.id.rain);
-                                rainView.setText("no data");
-                            }
 
 
                             JSONObject sys = jsonObject.getJSONObject("sys");
                             int sunrise = sys.getInt("sunrise") + jsonObject.getInt("timezone");
                             int sunset = sys.getInt("sunset") + jsonObject.getInt("timezone");
-                            int time  = jsonObject.getInt("dt") + jsonObject.getInt("timezone");
+                            int time = jsonObject.getInt("dt") + jsonObject.getInt("timezone");
 
-                            String sTime1 = LocalDateTime.parse(Integer.toString(time), DateTimeFormatter.BASIC_ISO_DATE).format(formatter);
+
+                            java.util.Date timeDate =new java.util.Date((long)time*1000);
+                            String sTime = LocalDateTime.parse(timeDate.toString(), DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyy")).format(formatter);
+
 
 
                             wID = id;
 
                             setContentView(R.layout.activity_weather);
-
-                            if(time<sunrise || time>sunset){
-                                ImageView background = findViewById(R.id.imageView);
-                                background.setImageResource(R.drawable.night);
-                            }
 
                             TextView tempView = findViewById(R.id.tempView);
                             tempView.setText(temp +"\u2103");
@@ -140,12 +138,31 @@ public class Start extends AppCompatActivity {
                             imageView.setImageResource(setIconRes(wID));
 
                             TextView dateView1 = findViewById(R.id.date2);
-                            dateView1.setText(sTime1);
+                            dateView1.setText(sTime);
                             TextView tempView1 = findViewById(R.id.temp);
                             tempView1.setText("feels like: "+temp1 +"\u2103");
+                            TextView tempView2 = findViewById(R.id.max);
+                            tempView2.setText("max: "+ maxtemp +"\u2103");
+                            TextView tempView3 = findViewById(R.id.min);
+                            tempView3.setText("min: "+ mintemp +"\u2103");
                             TextView windView = findViewById(R.id.wind);
-                            windView.setText(speed+" m/s\ndegrees: "+deg+" ("+direction+")");
+                            windView.setText(speed+" m/s\n"+deg+"\u00B0 ("+direction+")");
 
+                            if (jsonObject.has("rain")) {
+                                JSONObject rain = jsonObject.getJSONObject("rain");
+                                if (rain.has("1h")) {
+                                    double h1 = rain.getDouble("1h");
+                                    TextView rainView = findViewById(R.id.rainView);
+                                    rainView.setText(h1 + " mm");
+                                }
+                            }
+
+
+                            if(time<sunrise || time>sunset){
+                                ImageView background = findViewById(R.id.imageView);
+                                background.setImageResource(R.drawable.night);
+                                dateView1.setTextColor(Color.parseColor("#5802E3"));
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -154,7 +171,16 @@ public class Start extends AppCompatActivity {
 
 
                     }
-                }, error -> Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show());
+                }, error -> {
+                    if (error.toString().trim().equals("com.android.volley.ClientError")){
+                            city.setText("");
+                            city.setHint("Please enter City name!!");
+                            city.setBackgroundColor(Color.parseColor("#c77c71"));
+                        Toast.makeText(getApplicationContext(), "City name not recognised", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
 

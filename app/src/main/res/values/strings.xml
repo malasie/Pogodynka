@@ -10,4 +10,5 @@
     <string name="date">date</string>
     <string name="description">description</string>
     <string name="weather_icon">weather_icon</string>
+    <string name="no_data">no data</string>
 </resources>

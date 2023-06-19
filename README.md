@@ -5,10 +5,16 @@ Android Weather app that uses "Current weather data" API from openweathermap.org
 ## Start page
 Starting the application, opens the Start page (content view "activity_start"), which contains:
 - EditText widget where city name should be given;
-- Button that:
-  - gets text from the EditText wiget to then get information about weather in given city from the API
-  - sets "activity_weather" as content view to show weather data
-
+- Button with text "Show weather" that:
+  - gets text from the EditText wiget to set url link used for the API
+  - runs method "showWeather" to:
+    - get information about weather in given city from the API
+    - sets "activity_weather" as content view to show weather data
+- Button location with text "Show for current location" that:
+  - gets latitude and longitude of current location to set url link used for the API
+  - runs method "showWeather" to:
+    - get information about weather in current location from the API
+    - sets "activity_weather" as content view to show weather data
 If city name doesn't been given (empty string) or it doesn't get recognised the EditText changes color and it's hint changes to "Please enter City name!!"
 
 ![Start page](screenshots/Start.png) | ![error](screenshots/emptystring.png)

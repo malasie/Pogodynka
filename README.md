@@ -15,6 +15,7 @@ Starting the application, opens the Start page (content view "activity_start"), 
   - runs method "showWeather" to:
     - get information about weather in current location from the API
     - sets "activity_weather" as content view to show weather data
+      
 If city name doesn't been given (empty string) or it doesn't get recognised the EditText changes color and it's hint changes to "Please enter City name!!"
 
 ![Start page](screenshots/Start.png) | ![error](screenshots/emptystring.png)
